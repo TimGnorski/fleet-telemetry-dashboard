@@ -43,9 +43,15 @@ function buildPrompt(i: IncidentInput): string {
     `Active alerts: ${i.alerts.length ? i.alerts.join("; ") : "none"}.`,
     forecast,
     ``,
+    `Operating limits — note the direction of danger for each channel:`,
+    `- Engine temp: dangerous when HIGH; redline 120°C (overheating).`,
+    `- Vibration: dangerous when HIGH; redline 1.6g (mechanical wear/misalignment).`,
+    `- Oil pressure: dangerous when LOW; redline 255kPa. A reading falling TOWARD 255 is a pressure LOSS (e.g. low oil level, failing pump, worn bearings, leak) — never describe it as a spike or high pressure.`,
+    `- Fuel and payload: informational only, not failure conditions.`,
+    ``,
     `Give a brief operational assessment. Respond in exactly three plain-text lines, no markdown, no preamble:`,
     `Assessment: <one sentence on overall condition>`,
-    `Likely cause: <one sentence root-cause hypothesis grounded in the readings>`,
+    `Likely cause: <one sentence root-cause hypothesis grounded in the readings AND the correct direction of the breach>`,
     `Recommended action: <one concrete next step for the operator>`,
   ].join("\n");
 }
