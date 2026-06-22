@@ -12,20 +12,6 @@ A real-time fleet health monitoring dashboard, built as a proof-of-concept in th
 - **Tailwind v4** (Vite plugin) + hand-authored CSS for the visual identity
 - **Anthropic API** via a serverless function for on-demand incident analysis
 
-## Run it locally
-
-```bash
-npm install
-npm run dev      # http://localhost:5173 — AI feature works here too
-npm run build    # type-check + production build into /dist
-```
-
-## Deploy (Vercel)
-
-1. Push the project to a GitHub repo.
-2. Import it at vercel.com — Vite is auto-detected, no build config needed.
-3. In the project's **Settings → Environment Variables**, add `ANTHROPIC_API_KEY` with your key, then deploy. Vercel turns `/api/summarize.ts` into a serverless function automatically.
-
 ## How it's architected
 
 The codebase is deliberately layered so each concern is testable and swappable in isolation:
@@ -42,9 +28,3 @@ The codebase is deliberately layered so each concern is testable and swappable i
 
 Rather than fixed thresholds (`temp > 110 = bad`), the detector computes a **z-score** per channel against an adaptive baseline. This is the same instinct as adaptive filtering: the baseline tracks the signal instead of being hard-coded. The scoring interface is model-agnostic — the z-score can be swapped for a learned detector (autoencoder reconstruction error, isolation forest) without touching the UI.
 
-## What I'd do next
-
-- Replace the simulation hook with a real WebSocket/SSE feed; the component layer wouldn't change.
-- Move the streaming store behind `useSyncExternalStore` so the feed lives outside the React tree.
-- Code-split Recharts via dynamic import to trim the initial bundle.
-- Persist a learned per-machine baseline rather than recomputing the window each tick.
