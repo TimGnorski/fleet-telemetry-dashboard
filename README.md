@@ -12,16 +12,6 @@ A real-time fleet health monitoring dashboard, built as a proof-of-concept in th
 - **Tailwind v4** (Vite plugin) + hand-authored CSS for the visual identity
 - **Anthropic API** via a serverless function for on-demand incident analysis
 
-## Setup: your API key
-
-The AI incident analysis calls Claude through a serverless function so the API key stays server-side and never ships to the browser.
-
-1. Copy `.env.example` to a new file named `.env`.
-2. Paste your key after the `=`:  `ANTHROPIC_API_KEY=sk-ant-...`
-3. `.env` is gitignored — never commit it.
-
-Without a key the dashboard still runs fully; only the "Analyze" button returns an error.
-
 ## Run it locally
 
 ```bash
